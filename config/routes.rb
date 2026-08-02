@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root "sessions#new"
 
   resource :session
+  resource :locale, only: :update
   resources :passwords, param: :token
 
   namespace :settings do

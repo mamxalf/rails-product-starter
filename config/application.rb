@@ -35,6 +35,11 @@ module RailsProductStarter
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.i18n.available_locales = %i[id en]
+    config.i18n.default_locale = :id
+    config.i18n.fallbacks = { en: :id, id: :en }
+    config.time_zone = "Asia/Jakarta"
+    config.active_record.default_timezone = :utc
 
     # Don't generate system test files.
     config.generators.system_tests = nil

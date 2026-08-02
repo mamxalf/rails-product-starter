@@ -1,0 +1,27 @@
+id:
+  forms:
+    email_address: "Alamat email"
+  navigation:
+    sign_out: "Keluar"
+  sessions:
+    new:
+      title: "Masuk"
+      new_here: "Baru di sini?"
+      create_account: "Buat akun"
+      forgot_password: "Lupa kata sandi?"
+  passwords_mailer:
+    reset:
+      subject: "Atur ulang kata sandi"
+      intro: "Anda dapat mengatur ulang kata sandi di"
+      link: "halaman atur ulang kata sandi"
+      expires: "Tautan ini akan kedaluwarsa dalam %{duration}."
+  email_verification_mailer:
+    verification:
+      subject: "Verifikasi alamat email"
+      intro: "Verifikasi alamat email untuk %{app_name}."
+      link: "Verifikasi alamat email"
+  security_mailer:
+    account_deactivated:
+      subject: "Akun Anda dinonaktifkan"
+      intro: "Akun Anda dinonaktifkan."
+      support: "Jika Anda tidak meminta ini, hubungi dukungan."

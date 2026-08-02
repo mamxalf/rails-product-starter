@@ -7,6 +7,6 @@
       <p class="mt-1 text-sm text-zinc-600">Signed in as <%= Current.user.email_address %></p>
     </div>
 
-    <%= button_to "Sign out", session_path, method: :delete, class: "rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-white hover:bg-zinc-800" %>
+    <%= button_to t("navigation.sign_out"), session_path, method: :delete, class: "rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-white hover:bg-zinc-800" %>
   </div>
 </main>

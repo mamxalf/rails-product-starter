@@ -142,7 +142,7 @@ rails_product_starter/
 - [x] Phase 4 — Establish tests, linting, formatting, and local development commands.
 - [ ] Phase 5 — Generate and complete authentication.
 - [x] Phase 6 — Add profiles, roles, policies, and account settings.
-- [ ] Phase 7 — Add internationalization and locale persistence.
+- [x] Phase 7 — Add internationalization and locale persistence.
 - [ ] Phase 8 — Build public, authentication, member, and admin application shells.
 - [ ] Phase 9 — Add generic admin user management.
 - [ ] Phase 10 — Add notifications, uploads, jobs, and mail delivery.
@@ -1220,28 +1220,28 @@ Implement locale resolution in this order:
 
 Rules:
 
-- [ ] Only `id` and `en` are accepted.
-- [ ] Locale parameter is not persisted without an explicit language change action.
-- [ ] Authenticated selection updates `users.preferred_locale`.
-- [ ] Guest selection uses a signed cookie.
-- [ ] `I18n.with_locale` or `around_action` prevents locale leakage between requests.
+- [x] Only `id` and `en` are accepted.
+- [x] Locale parameter is not persisted without an explicit language change action.
+- [x] Authenticated selection updates `users.preferred_locale`.
+- [x] Guest selection uses a signed cookie.
+- [x] `I18n.with_locale` or `around_action` prevents locale leakage between requests.
 
 ## Task 7.3: Locale-aware frontend
 
-- [ ] Share current locale through Inertia.
-- [ ] Keep frontend navigation labels in Rails-provided props or a small typed locale dictionary.
-- [ ] Format dates and numbers with `Intl.DateTimeFormat` and `Intl.NumberFormat` using the active locale.
-- [ ] Do not duplicate domain records solely to change the interface language.
+- [x] Share current locale through Inertia.
+- [x] Keep frontend navigation labels in Rails-provided props or a small typed locale dictionary.
+- [x] Format dates and numbers with `Intl.DateTimeFormat` and `Intl.NumberFormat` using the active locale.
+- [x] Do not duplicate domain records solely to change the interface language.
 
 ## Task 7.4: Locale tests
 
-- [ ] Guest defaults to Indonesian.
-- [ ] Guest can switch to English and retain it through the cookie.
-- [ ] Authenticated user preference overrides the guest cookie.
-- [ ] Unsupported locale values fall back safely.
-- [ ] Mailers render using the recipient's preferred locale.
+- [x] Guest defaults to Indonesian.
+- [x] Guest can switch to English and retain it through the cookie.
+- [x] Authenticated user preference overrides the guest cookie.
+- [x] Unsupported locale values fall back safely.
+- [x] Mailers render using the recipient's preferred locale.
 
-- [ ] Run `bin/quality` and commit.
+- [x] Run `bin/quality` and commit.
 
 ---
 

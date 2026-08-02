@@ -194,6 +194,8 @@ Do not create the `rails_product_starter` directory manually. The Rails generato
 
 # Phase 1 — Generate Rails
 
+This repository already contains the generated Rails application. Do not run `rails new` again in this workspace; verify the generated baseline instead and continue from the next incomplete task.
+
 ## Task 1.1: Generate the full-stack application
 
 From the parent directory, run:
@@ -224,19 +226,26 @@ rails _8.1.3_ new rails_product_starter \
 
 ### What remains enabled
 
-- [ ] Active Record and PostgreSQL.
-- [ ] Action Controller and Action View.
-- [ ] Active Job and Solid Queue.
-- [ ] Active Storage.
-- [ ] Action Mailer.
-- [ ] Action Cable and Solid Cable.
-- [ ] Solid Cache.
-- [ ] Propshaft.
-- [ ] Dockerfile and entrypoint.
-- [ ] Kamal and Thruster unless deployment is deliberately changed later.
-- [ ] Bootsnap.
-- [ ] RuboCop, Brakeman, dependency auditing, and generated CI foundations.
-- [ ] Rails health endpoint.
+- [x] Active Record and PostgreSQL.
+- [x] Action Controller and Action View.
+- [x] Active Job and Solid Queue.
+- [x] Active Storage.
+- [x] Action Mailer.
+- [x] Action Cable and Solid Cable.
+- [x] Solid Cache.
+- [x] Propshaft.
+- [x] Dockerfile and entrypoint.
+- [x] Kamal and Thruster unless deployment is deliberately changed later.
+- [x] Bootsnap.
+- [x] RuboCop, Brakeman, dependency auditing, and generated CI foundations.
+- [x] Rails health endpoint.
+
+Verified in this repository:
+
+- [x] Rails reports `8.1.3.1`.
+- [x] Ruby reports `3.4.10`.
+- [x] The application module is `RailsProductStarter`.
+- [x] `app/javascript`, `test`, and `config/importmap.rb` are absent, matching the generator skip flags.
 
 ## Task 1.2: Verify a clean Rails boot
 
@@ -250,6 +259,14 @@ bin/rails runner 'puts Rails.application.class.module_parent_name'
 ```
 
 **Expected:** database creation succeeds and the runner prints `RailsProductStarter`.
+
+Current verification status:
+
+- [x] `bin/rails about` boots and reports PostgreSQL as the database adapter.
+- [x] `bin/rails runner 'puts Rails.application.class.module_parent_name'` prints `RailsProductStarter`.
+- [x] `bin/rails db:create` succeeds.
+- [x] `bin/rails db:migrate` succeeds.
+- [x] `bin/rails db:version` succeeds after PostgreSQL is running locally.
 
 - [ ] Commit runtime pins first, then the generated application:
 

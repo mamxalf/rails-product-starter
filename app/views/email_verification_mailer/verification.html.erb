@@ -1,0 +1,5 @@
+<p>Verify your email address for <%= ENV.fetch("APP_NAME", "Starter App") %>.</p>
+
+<p>
+  <%= link_to "Verify email address", verify_email_url(@token) %>
+</p>

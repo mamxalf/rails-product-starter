@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resource :registration, only: %i[ new create ]
+  resource :email_verification, only: :create
+  get "/email_verification/:token", to: "email_verifications#show", as: :verify_email
+  get "/app", to: "app#show", as: :app
+  root "sessions#new"
+
+  resource :session
+  resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

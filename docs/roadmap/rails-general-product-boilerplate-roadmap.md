@@ -909,9 +909,9 @@ bin/rails db:migrate
 
 The generated authentication must remain session-cookie based. Do not replace it with JWT for the web application.
 
-- [ ] Review generated models, controllers, routes, views, and mailer.
-- [ ] Restart the Rails process after the generator adds `bcrypt`.
-- [ ] Write request specs for login, logout, invalid credentials, password reset request, and password reset completion.
+- [x] Review generated models, controllers, routes, views, and mailer.
+- [x] Restart the Rails process after the generator adds `bcrypt`.
+- [x] Write request specs for login, logout, invalid credentials, password reset request, and password reset completion.
 
 ## Task 5.2: Normalize the User model
 
@@ -946,9 +946,9 @@ add_index :users, :deactivated_at
 
 Email uniqueness must be enforced by PostgreSQL, not only by Rails validations:
 
-- [ ] Keep the generated unique index on `email_address` if emails are always normalized before write.
-- [ ] Prefer a case-insensitive unique index such as `index_users_on_lower_email_address` when the database can receive mixed-case values.
-- [ ] Add a model/request spec proving duplicate emails with different casing cannot create two accounts.
+- [x] Replace the generated unique index with database-level case-insensitive email uniqueness.
+- [x] Prefer a case-insensitive unique index such as `index_users_on_lower_email_address` when the database can receive mixed-case values.
+- [x] Add a model/request spec proving duplicate emails with different casing cannot create two accounts.
 
 In `app/models/user.rb`:
 
@@ -999,12 +999,12 @@ resource :registration, only: %i[new create]
 
 Requirements:
 
-- [ ] Accept `name`, `email_address`, `password`, and `password_confirmation`.
-- [ ] Apply controller rate limiting to registration attempts.
-- [ ] Never accept `role`, `email_verified_at`, or `suspended_at` from public parameters.
-- [ ] Create a session after valid registration.
-- [ ] Send verification email asynchronously.
-- [ ] Render validation errors without losing entered non-password fields.
+- [x] Accept `name`, `email_address`, `password`, and `password_confirmation`.
+- [x] Apply controller rate limiting to registration attempts.
+- [x] Never accept `role`, `email_verified_at`, or `suspended_at` from public parameters.
+- [x] Create a session after valid registration.
+- [x] Send verification email asynchronously.
+- [x] Render validation errors without losing entered non-password fields.
 
 ## Task 5.4: Add email verification
 
@@ -1048,11 +1048,11 @@ get "/email_verification/:token", to: "email_verifications#show", as: :verify_em
 
 Rules:
 
-- [ ] Token expires after 24 hours.
-- [ ] Token is purpose-scoped to email verification.
-- [ ] Verification sets `email_verified_at` once and is idempotent.
-- [ ] Resend endpoint is rate-limited.
-- [ ] Changing email clears verification and sends a new message.
+- [x] Token expires after 24 hours.
+- [x] Token is purpose-scoped to email verification.
+- [x] Verification sets `email_verified_at` once and is idempotent.
+- [x] Resend endpoint is rate-limited.
+- [x] Changing email clears verification and sends a new message.
 
 ## Task 5.5: Enforce authentication states
 
@@ -1066,23 +1066,23 @@ app/controllers/concerns/not_suspended.rb
 
 Rules:
 
-- [ ] Public marketing and authentication pages allow guests.
-- [ ] `/app/*` requires a logged-in, verified, non-suspended user.
-- [ ] `/admin/*` requires `staff` or `admin` according to policy.
-- [ ] A suspended account can log out and access support information but cannot use the product.
+- [x] Public marketing and authentication pages allow guests.
+- [x] `/app/*` requires a logged-in, verified, non-suspended user.
+- [x] `/admin/*` requires `staff` or `admin` according to policy.
+- [x] A suspended account can log out and access support information but cannot use the product.
 
 ## Task 5.6: Authentication acceptance tests
 
-- [ ] Guest can register.
-- [ ] Registered user receives a verification message in the test queue.
-- [ ] Unverified user is redirected away from `/app`.
-- [ ] Verification link activates the account.
-- [ ] Verified user can open `/app`.
-- [ ] User can reset a forgotten password.
-- [ ] Logging out invalidates the current session.
-- [ ] Reused expired tokens fail safely.
+- [x] Guest can register.
+- [x] Registered user receives a verification message in the test queue.
+- [x] Unverified user is redirected away from `/app`.
+- [x] Verification link activates the account.
+- [x] Verified user can open `/app`.
+- [x] User can reset a forgotten password.
+- [x] Logging out invalidates the current session.
+- [x] Reused expired tokens fail safely.
 
-- [ ] Run `bin/quality` and commit:
+- [x] Run `bin/quality` and commit:
 
 ```bash
 git add app config db spec

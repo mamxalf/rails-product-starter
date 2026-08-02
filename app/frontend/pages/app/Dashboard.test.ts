@@ -9,6 +9,7 @@ describe("Dashboard", () => {
         auth: {
           user: { name: "Member", email: "member@example.com", role: "member" },
         },
+        notifications: { unread_count: 0 },
         locale: "en",
         i18n: {
           app: {
@@ -55,6 +56,7 @@ describe("Dashboard", () => {
         auth: {
           user: { name: "Member", email: "member@example.com", role: "member" },
         },
+        notifications: { unread_count: 0 },
         locale: "id",
         i18n: {
           app: {
@@ -96,6 +98,7 @@ describe("Dashboard", () => {
         auth: {
           user: { name: "Member", email: "member@example.com", role: "member" },
         },
+        notifications: { unread_count: 0 },
         locale: "en",
         i18n: {
           app: {

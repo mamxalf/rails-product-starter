@@ -1,0 +1,32 @@
+<% content_for :title, "New announcement" %>
+
+<main class="mx-auto max-w-3xl px-6 py-8">
+  <h1 class="text-2xl font-semibold text-zinc-950">New announcement</h1>
+
+  <%= form_with url: admin_notifications_path, scope: :announcement, class: "mt-6 space-y-4" do |form| %>
+    <div>
+      <%= form.label :title, class: "block text-sm font-medium text-zinc-800" %>
+      <%= form.text_field :title, value: @announcement["title"], required: true, class: "mt-1 w-full rounded-md border border-zinc-300 px-3 py-2" %>
+    </div>
+
+    <div>
+      <%= form.label :body, class: "block text-sm font-medium text-zinc-800" %>
+      <%= form.text_area :body, value: @announcement["body"], required: true, rows: 5, class: "mt-1 w-full rounded-md border border-zinc-300 px-3 py-2" %>
+    </div>
+
+    <div>
+      <%= form.label :action_url, "Action URL", class: "block text-sm font-medium text-zinc-800" %>
+      <%= form.text_field :action_url, value: @announcement["action_url"], placeholder: "/app/dashboard", class: "mt-1 w-full rounded-md border border-zinc-300 px-3 py-2" %>
+    </div>
+
+    <div>
+      <%= form.label :audience, class: "block text-sm font-medium text-zinc-800" %>
+      <%= form.select :audience, [["All active", "all_active"], ["Members", "members"], ["Staff", "staff"]], { selected: @announcement["audience"] || "all_active" }, class: "mt-1 w-full rounded-md border border-zinc-300 px-3 py-2" %>
+    </div>
+
+    <div class="flex gap-3">
+      <%= form.submit "Queue announcement", class: "rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-white" %>
+      <%= link_to "Cancel", admin_notifications_path, class: "rounded-md border border-zinc-300 px-3 py-2 text-sm font-medium" %>
+    </div>
+  <% end %>
+</main>

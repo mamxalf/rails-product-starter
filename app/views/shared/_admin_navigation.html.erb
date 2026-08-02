@@ -3,7 +3,7 @@
     <%= link_to ENV.fetch("APP_NAME", "Starter App"), admin_path, class: "font-semibold text-zinc-950" %>
     <%= link_to "Dashboard", admin_path, class: "text-zinc-700 hover:text-zinc-950" %>
     <%= link_to "Users", admin_users_path, class: "text-zinc-700 hover:text-zinc-950" %>
-    <span class="text-zinc-500">Notifications</span>
+    <%= link_to "Notifications", admin_notifications_path, class: "text-zinc-700 hover:text-zinc-950" %>
     <span class="text-zinc-500">Audit events</span>
     <span class="text-zinc-500">Jobs</span>
     <%= link_to "Back to app", app_dashboard_path, class: "ml-auto text-zinc-700 hover:text-zinc-950" %>

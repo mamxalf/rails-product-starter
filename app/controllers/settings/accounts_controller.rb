@@ -8,7 +8,10 @@ module Settings
 
       password_confirmed = @user.authenticate(permitted[:current_password])
 
+      old_email_address = @user.email_address
+
       if password_confirmed && @user.update(email_address: permitted[:email_address])
+        SecurityMailer.email_changed(@user, old_email_address).deliver_later if old_email_address != @user.email_address
         redirect_to settings_account_path, notice: "Email updated. Check your email to verify your new address."
       else
         @user.errors.add(:base, "Current password is invalid") unless password_confirmed

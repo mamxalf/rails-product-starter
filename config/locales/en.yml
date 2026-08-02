@@ -81,3 +81,11 @@ en:
       subject: "Your account was deactivated"
       intro: "Your account was deactivated."
       support: "If you did not request this, contact support."
+    password_changed:
+      subject: "Your password was changed"
+      intro: "Your password was changed."
+      support: "If you did not request this, reset your password immediately."
+    email_changed:
+      subject: "Your email address was changed"
+      intro: "Your email address was changed."
+      support: "If you did not request this, contact support."

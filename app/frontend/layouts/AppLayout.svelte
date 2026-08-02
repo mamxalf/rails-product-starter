@@ -5,6 +5,7 @@
 
   let {
     auth,
+    notifications = { unread_count: 0 },
     locale = "id",
     i18n,
     flash = {},
@@ -45,9 +46,10 @@
         </nav>
 
         <div class="ml-auto flex items-center gap-3 text-sm">
-          <span
+          <a
             aria-label={text.notifications}
-            class="rounded-full border border-zinc-300 px-2 py-1">0</span
+            class="min-w-8 rounded-full border border-zinc-300 px-2 py-1 text-center hover:bg-zinc-100"
+            href="/app/notifications">{notifications.unread_count}</a
           >
           <div class="text-right">
             <p class="font-medium">{user?.name}</p>

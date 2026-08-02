@@ -13,9 +13,15 @@ Rails.application.routes.draw do
 
   namespace :app do
     resource :dashboard, only: :show, controller: :dashboards
+    resources :notifications, only: %i[index update] do
+      collection do
+        patch :read_all
+      end
+    end
   end
 
   namespace :admin do
+    resources :notifications, only: %i[index new create]
     resources :users, only: %i[index show] do
       member do
         patch :role

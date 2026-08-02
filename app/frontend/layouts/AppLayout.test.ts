@@ -10,6 +10,7 @@ describe("AppLayout", () => {
         auth: {
           user: { name: "Member", email: "member@example.com", role: "member" },
         },
+        notifications: { unread_count: 3 },
         locale: "en",
         i18n: {
           app: {
@@ -32,6 +33,9 @@ describe("AppLayout", () => {
       2,
     )
     expect(screen.getByText("member@example.com")).toBeInTheDocument()
+    expect(
+      screen.getByRole("link", { name: "Notifications" }),
+    ).toHaveTextContent("3")
     expect(screen.getByRole("button", { name: "ID" })).toBeInTheDocument()
     expect(screen.getByText("Saved")).toBeInTheDocument()
     expect(screen.getByRole("main")).toHaveTextContent("Account status")
@@ -43,6 +47,7 @@ describe("AppLayout", () => {
         auth: {
           user: { name: "Member", email: "member@example.com", role: "member" },
         },
+        notifications: { unread_count: 0 },
         locale: "id",
         i18n: {
           app: {
@@ -72,6 +77,7 @@ describe("AppLayout", () => {
         auth: {
           user: { name: "Member", email: "member@example.com", role: "member" },
         },
+        notifications: { unread_count: 0 },
         locale: "en",
         i18n: {
           app: {

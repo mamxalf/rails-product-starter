@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_02_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_02_130000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -58,6 +58,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_02_120000) do
     t.index [ "target_type", "target_id" ], name: "index_audit_events_on_target_type_and_target_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "action_url"
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.string "dedupe_key"
+    t.string "kind", null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "read_at"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index [ "user_id", "created_at" ], name: "index_notifications_on_user_id_and_created_at"
+    t.index [ "user_id", "dedupe_key" ], name: "index_notifications_on_user_id_and_dedupe_key", unique: true, where: "(dedupe_key IS NOT NULL)"
+    t.index [ "user_id", "read_at" ], name: "index_notifications_on_user_id_and_read_at"
+    t.index [ "user_id" ], name: "index_notifications_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -89,5 +106,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_02_120000) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "audit_events", "users", column: "actor_id"
+  add_foreign_key "notifications", "users"
   add_foreign_key "sessions", "users"
 end

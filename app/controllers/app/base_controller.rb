@@ -14,8 +14,11 @@ class App::BaseController < ApplicationController
           name: user.name,
           email: user.email_address,
           role: user.role,
-          avatar_url: user.avatar.attached? ? url_for(user.avatar) : nil
+          avatar_url: user.avatar.attached? ? url_for(user.avatar.variant(:thumb)) : nil
         }
+      },
+      notifications: {
+        unread_count: user ? user.notifications.unread.count : 0
       },
       locale: I18n.locale.to_s,
       i18n: {

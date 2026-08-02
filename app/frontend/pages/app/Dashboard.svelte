@@ -2,11 +2,18 @@
   import AppLayout from "@/layouts/AppLayout.svelte"
   import type { DashboardProps } from "@/types/app"
 
-  let { auth, locale, i18n, permissions, flash }: DashboardProps = $props()
+  let {
+    auth,
+    notifications,
+    locale,
+    i18n,
+    permissions,
+    flash,
+  }: DashboardProps = $props()
   const text = $derived(i18n.app.dashboard)
 </script>
 
-<AppLayout {auth} {locale} {i18n} {flash}>
+<AppLayout {auth} {notifications} {locale} {i18n} {flash}>
   <div class="max-w-5xl">
     <div class="flex items-start justify-between gap-4">
       <div>

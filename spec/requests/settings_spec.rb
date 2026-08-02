@@ -38,9 +38,17 @@ RSpec.describe "Settings", type: :request do
     end
   end
 
-  it "updates profile name and avatar and rejects invalid name" do
+  it "updates profile name and rejects invalid profile input" do
     user = create_user
     sign_in(user)
+
+    patch settings_profile_path, params: { user: { name: "Updated" } }
+
+    expect(response).to redirect_to(settings_profile_path)
+    expect(user.reload.name).to eq("Updated")
+
+    patch settings_profile_path, params: { user: { name: "" } }
+    expect(response).to have_http_status(:unprocessable_content)
 
     patch settings_profile_path, params: {
       user: {
@@ -48,12 +56,6 @@ RSpec.describe "Settings", type: :request do
         avatar: Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/avatar.txt"), "text/plain")
       }
     }
-
-    expect(response).to redirect_to(settings_profile_path)
-    expect(user.reload.name).to eq("Updated")
-    expect(user.avatar).to be_attached
-
-    patch settings_profile_path, params: { user: { name: "" } }
     expect(response).to have_http_status(:unprocessable_content)
   end
 

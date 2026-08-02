@@ -81,3 +81,11 @@ id:
       subject: "Akun Anda dinonaktifkan"
       intro: "Akun Anda dinonaktifkan."
       support: "Jika Anda tidak meminta ini, hubungi dukungan."
+    password_changed:
+      subject: "Kata sandi Anda diubah"
+      intro: "Kata sandi Anda diubah."
+      support: "Jika Anda tidak meminta ini, segera atur ulang kata sandi."
+    email_changed:
+      subject: "Alamat email Anda diubah"
+      intro: "Alamat email Anda diubah."
+      support: "Jika Anda tidak meminta ini, hubungi dukungan."

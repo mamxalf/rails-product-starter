@@ -1,0 +1,16 @@
+pre-commit:
+  commands:
+    rubocop:
+      glob: "*.rb"
+      run: bundle exec rubocop {staged_files}
+    frontend-lint:
+      glob: "*.{ts,svelte}"
+      run: pnpm run lint
+    frontend-format:
+      glob: "*.{ts,svelte}"
+      run: pnpm run format:check
+
+pre-push:
+  commands:
+    quality:
+      run: bin/quality

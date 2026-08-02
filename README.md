@@ -1,24 +1,46 @@
-# README
+# Rails Product Starter
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Quality
 
-Things you may want to cover:
+Run the full local gate before opening or merging a pull request:
 
-* Ruby version
+```bash
+bin/quality
+```
 
-* System dependencies
+Frontend checks are also available individually:
 
-* Configuration
+```bash
+pnpm run check
+pnpm run lint
+pnpm run format:check
+pnpm run test
+pnpm run test:e2e
+```
 
-* Database creation
+## Git hooks
 
-* Database initialization
+Lefthook is optional. `bin/quality` and CI remain authoritative.
 
-* How to run the test suite
+Install hooks after dependencies are installed:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+pnpm exec lefthook install
+```
 
-* Deployment instructions
+Disable hooks:
 
-* ...
+```bash
+pnpm exec lefthook uninstall
+```
+
+Skip hooks only for emergencies:
+
+```bash
+LEFTHOOK=0 git commit -m "message"
+LEFTHOOK=0 git push
+```
+
+Run the skipped checks before opening or merging a pull request. If a hook cannot
+find Ruby or pnpm commands, run it from the repository root after installing
+dependencies with `bundle install` and `pnpm install`.

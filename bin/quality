@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+bundle exec rubocop
+bundle exec brakeman -q
+bundle exec bundler-audit check --update
+bundle exec rspec
+pnpm run check
+pnpm run lint
+pnpm run format:check
+pnpm run test
+RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 bin/rails assets:precompile

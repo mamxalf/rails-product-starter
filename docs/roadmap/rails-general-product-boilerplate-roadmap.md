@@ -139,7 +139,7 @@ rails_product_starter/
 - [x] Phase 1 — Generate the Rails application.
 - [x] Phase 2 — Install Ruby and frontend dependencies.
 - [x] Phase 3 — Configure Vite, Svelte, Hotwire, Inertia, and Tailwind.
-- [ ] Phase 4 — Establish tests, linting, formatting, and local development commands.
+- [x] Phase 4 — Establish tests, linting, formatting, and local development commands.
 - [ ] Phase 5 — Generate and complete authentication.
 - [ ] Phase 6 — Add profiles, roles, policies, and account settings.
 - [ ] Phase 7 — Add internationalization and locale persistence.
@@ -882,10 +882,10 @@ Add Lefthook as an optional developer convenience, not as the source of truth fo
 
 Create a documented `lefthook.yml` with:
 
-- [ ] `pre-commit` runs fast checks only, such as RuboCop on Ruby changes and frontend lint/format checks on frontend changes.
-- [ ] `pre-push` runs `bin/quality` by default.
-- [ ] Hooks can be skipped only for documented emergencies; skipped checks must be run before opening or merging a pull request.
-- [ ] The README explains how to install, enable, disable, and troubleshoot hooks.
+- [x] `pre-commit` runs fast checks only, such as RuboCop on Ruby changes and frontend lint/format checks on frontend changes.
+- [x] `pre-push` runs `bin/quality` by default.
+- [x] Hooks can be skipped only for documented emergencies; skipped checks must be run before opening or merging a pull request.
+- [x] The README explains how to install, enable, disable, and troubleshoot hooks.
 
 Do not use Husky as the default. This is a Rails-first repository with Ruby and frontend checks; Lefthook keeps hooks language-neutral.
 

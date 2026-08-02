@@ -1,6 +1,8 @@
 import { application } from "./application"
 
-const controllerModules = import.meta.glob("./**/*_controller.ts", { eager: true })
+const controllerModules = import.meta.glob("./**/*_controller.ts", {
+  eager: true,
+})
 
 for (const path in controllerModules) {
   const module = controllerModules[path] as { default?: unknown }

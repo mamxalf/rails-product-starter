@@ -2,7 +2,7 @@
   <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-6 py-4 text-sm">
     <%= link_to ENV.fetch("APP_NAME", "Starter App"), admin_path, class: "font-semibold text-zinc-950" %>
     <%= link_to "Dashboard", admin_path, class: "text-zinc-700 hover:text-zinc-950" %>
-    <span class="text-zinc-500">Users</span>
+    <%= link_to "Users", admin_users_path, class: "text-zinc-700 hover:text-zinc-950" %>
     <span class="text-zinc-500">Notifications</span>
     <span class="text-zinc-500">Audit events</span>
     <span class="text-zinc-500">Jobs</span>

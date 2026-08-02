@@ -1,0 +1,55 @@
+<% content_for :title, "Users" %>
+
+<main class="mx-auto max-w-6xl px-6 py-8">
+  <div class="flex items-center justify-between gap-4">
+    <h1 class="text-2xl font-semibold text-zinc-950">Users</h1>
+  </div>
+
+  <%= form_with url: admin_users_path, method: :get, class: "mt-6 grid gap-3 rounded-md border border-zinc-200 bg-white p-4 md:grid-cols-6" do |form| %>
+    <%= form.search_field :search, value: params[:search], placeholder: "Search name or email", class: "md:col-span-2 rounded-md border border-zinc-300 px-3 py-2 text-sm" %>
+    <%= form.select :role, options_for_select([["Any role", ""], ["Member", "member"], ["Staff", "staff"], ["Admin", "admin"]], params[:role]), {}, class: "rounded-md border border-zinc-300 px-3 py-2 text-sm" %>
+    <%= form.select :verification, options_for_select([["Any verification", ""], ["Verified", "verified"], ["Unverified", "unverified"]], params[:verification]), {}, class: "rounded-md border border-zinc-300 px-3 py-2 text-sm" %>
+    <%= form.select :status, options_for_select([["Any status", ""], ["Active", "active"], ["Suspended", "suspended"]], params[:status]), {}, class: "rounded-md border border-zinc-300 px-3 py-2 text-sm" %>
+    <%= form.select :sort, options_for_select([["Newest", "newest"], ["Oldest", "oldest"]], params[:sort]), {}, class: "rounded-md border border-zinc-300 px-3 py-2 text-sm" %>
+    <div class="md:col-span-6 flex gap-2">
+      <%= form.submit "Filter", class: "rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-white" %>
+      <%= link_to "Reset", admin_users_path, class: "rounded-md border border-zinc-300 px-3 py-2 text-sm text-zinc-700" %>
+    </div>
+  <% end %>
+
+  <div class="mt-6 overflow-x-auto rounded-md border border-zinc-200 bg-white">
+    <table class="min-w-full divide-y divide-zinc-200 text-left text-sm">
+      <thead class="bg-zinc-50 text-zinc-600">
+        <tr>
+          <th class="px-4 py-3 font-medium">Identity</th>
+          <th class="px-4 py-3 font-medium">Role</th>
+          <th class="px-4 py-3 font-medium">Verification</th>
+          <th class="px-4 py-3 font-medium">Status</th>
+          <th class="px-4 py-3 font-medium">Sessions</th>
+          <th class="px-4 py-3 font-medium">Created</th>
+          <th class="px-4 py-3 font-medium"></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-zinc-200">
+        <% @users.each do |user| %>
+          <tr>
+            <td class="px-4 py-3">
+              <div class="font-medium text-zinc-950"><%= user.name %></div>
+              <div class="text-zinc-600"><%= user.email_address %></div>
+            </td>
+            <td class="px-4 py-3"><%= render "badge", label: user.role.titleize %></td>
+            <td class="px-4 py-3"><%= render "badge", label: user.email_verified? ? "Verified" : "Unverified" %></td>
+            <td class="px-4 py-3"><%= render "badge", label: user.suspended? ? "Suspended" : "Active" %></td>
+            <td class="px-4 py-3 text-zinc-700"><%= user.sessions.size %></td>
+            <td class="px-4 py-3 text-zinc-700"><%= l(user.created_at.to_date, format: :long) %></td>
+            <td class="px-4 py-3 text-right"><%= link_to "Details", admin_user_path(user), class: "text-zinc-950 underline" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-6">
+    <%== @pagy.series_nav if @pagy.pages > 1 %>
+  </div>
+</main>

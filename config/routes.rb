@@ -15,6 +15,17 @@ Rails.application.routes.draw do
     resource :dashboard, only: :show, controller: :dashboards
   end
 
+  namespace :admin do
+    resources :users, only: %i[index show] do
+      member do
+        patch :role
+        patch :suspend
+        patch :unsuspend
+        patch :revoke_sessions
+      end
+    end
+  end
+
   resource :session
   resource :locale, only: :update
   resources :passwords, param: :token

@@ -141,7 +141,7 @@ rails_product_starter/
 - [x] Phase 3 — Configure Vite, Svelte, Hotwire, Inertia, and Tailwind.
 - [x] Phase 4 — Establish tests, linting, formatting, and local development commands.
 - [ ] Phase 5 — Generate and complete authentication.
-- [ ] Phase 6 — Add profiles, roles, policies, and account settings.
+- [x] Phase 6 — Add profiles, roles, policies, and account settings.
 - [ ] Phase 7 — Add internationalization and locale persistence.
 - [ ] Phase 8 — Build public, authentication, member, and admin application shells.
 - [ ] Phase 9 — Add generic admin user management.
@@ -1122,12 +1122,12 @@ Create controllers and screens:
 
 Required behavior:
 
-- [ ] Profile: update name and avatar.
-- [ ] Security: change password after confirming the current password.
-- [ ] Preferences: update locale and time zone.
-- [ ] Sessions: list active sessions and revoke another session.
-- [ ] Email: change email only after confirming password; clear verification.
-- [ ] Account deletion: require password and a typed confirmation phrase; perform a documented deletion policy.
+- [x] Profile: update name and avatar.
+- [x] Security: change password after confirming the current password.
+- [x] Preferences: update locale and time zone.
+- [x] Sessions: list active sessions and revoke another session.
+- [x] Email: change email only after confirming password; clear verification.
+- [x] Account deletion: require password and a typed confirmation phrase; perform a documented deletion policy.
 
 Implement conservative self-service deactivation in the core starter. It sets `deactivated_at`, revokes every session, sends a security email, and blocks future sign-in. Do not physically delete the account until a product defines retention and legal requirements.
 
@@ -1180,7 +1180,7 @@ Create policy specs covering:
 | Staff | Yes | Yes | No | No |
 | Admin | Yes | Yes | Yes | Yes, except self-demotion safeguards |
 
-- [ ] Run `bin/quality` and commit.
+- [x] Run `bin/quality` and commit.
 
 ---
 

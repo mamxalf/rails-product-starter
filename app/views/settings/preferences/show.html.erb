@@ -1,0 +1,22 @@
+<% content_for :title, "Preference settings" %>
+
+<main class="mx-auto max-w-3xl px-6 py-10">
+  <%= render "settings/nav" %>
+
+  <h1 class="text-2xl font-semibold text-zinc-950">Preferences</h1>
+  <%= render "settings/errors", user: @user %>
+
+  <%= form_with model: @user, url: settings_preferences_path, method: :patch, class: "mt-6 space-y-4" do |form| %>
+    <div>
+      <%= form.label :preferred_locale, class: "block text-sm font-medium text-zinc-800" %>
+      <%= form.select :preferred_locale, [["Indonesian", "id"], ["English", "en"]], {}, class: "mt-1 w-full rounded-md border border-zinc-300 px-3 py-2" %>
+    </div>
+
+    <div>
+      <%= form.label :time_zone, class: "block text-sm font-medium text-zinc-800" %>
+      <%= form.text_field :time_zone, class: "mt-1 w-full rounded-md border border-zinc-300 px-3 py-2" %>
+    </div>
+
+    <%= form.submit "Save preferences", class: "rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-white hover:bg-zinc-800" %>
+  <% end %>
+</main>

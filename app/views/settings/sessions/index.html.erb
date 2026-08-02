@@ -1,0 +1,24 @@
+<% content_for :title, "Session settings" %>
+
+<main class="mx-auto max-w-3xl px-6 py-10">
+  <%= render "settings/nav" %>
+
+  <h1 class="text-2xl font-semibold text-zinc-950">Sessions</h1>
+
+  <div class="mt-6 divide-y divide-zinc-200 border-y border-zinc-200">
+    <% @sessions.each do |session| %>
+      <div class="flex items-center justify-between gap-4 py-4">
+        <div>
+          <p class="text-sm font-medium text-zinc-950"><%= session.user_agent.presence || "Unknown device" %></p>
+          <p class="text-sm text-zinc-600"><%= session.ip_address %></p>
+        </div>
+
+        <% if session == Current.session %>
+          <span class="text-sm text-zinc-500">Current</span>
+        <% else %>
+          <%= button_to "Revoke", settings_session_path(session), method: :delete, class: "rounded-md border border-zinc-300 px-3 py-2 text-sm font-medium text-zinc-800 hover:bg-zinc-50" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</main>

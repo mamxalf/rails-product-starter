@@ -1,0 +1,10 @@
+<% if user.errors.any? %>
+  <div class="mb-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+    <p class="font-medium">Please fix the highlighted fields.</p>
+    <ul class="mt-2 list-disc pl-5">
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

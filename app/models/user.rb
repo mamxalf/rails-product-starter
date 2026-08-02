@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
+  has_one_attached :avatar
 
   enum :role, { member: 0, staff: 1, admin: 2 }, default: :member, validate: true
 

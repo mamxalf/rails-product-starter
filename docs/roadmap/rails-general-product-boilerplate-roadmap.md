@@ -135,9 +135,9 @@ rails_product_starter/
 
 # Roadmap at a glance
 
-- [ ] Phase 0 — Prepare toolchain and repository.
-- [ ] Phase 1 — Generate the Rails application.
-- [ ] Phase 2 — Install Ruby and frontend dependencies.
+- [x] Phase 0 — Prepare toolchain and repository.
+- [x] Phase 1 — Generate the Rails application.
+- [x] Phase 2 — Install Ruby and frontend dependencies.
 - [ ] Phase 3 — Configure Vite, Svelte, Hotwire, Inertia, and Tailwind.
 - [ ] Phase 4 — Establish tests, linting, formatting, and local development commands.
 - [ ] Phase 5 — Generate and complete authentication.
@@ -157,14 +157,14 @@ rails_product_starter/
 
 ## Task 0.1: Install runtimes
 
-- [ ] Install `mise` using its official installation method.
-- [ ] Install supported runtimes globally so they are available to the Rails generator:
+- [x] Install `mise` using its official installation method.
+- [x] Install supported runtimes globally so they are available to the Rails generator:
 
 ```bash
-mise use --global ruby@3.4 node@24 pnpm@10
+mise use --global ruby@3.4 node@24 pnpm@11
 ```
 
-- [ ] Verify:
+- [x] Verify:
 
 ```bash
 ruby --version
@@ -172,7 +172,7 @@ node --version
 pnpm --version
 ```
 
-- [ ] Install Rails 8.1.3:
+- [x] Install Rails 8.1.3:
 
 ```bash
 gem install rails -v 8.1.3
@@ -180,6 +180,14 @@ rails _8.1.3_ --version
 ```
 
 **Expected:** all commands exit successfully and Rails reports `8.1.3`.
+
+Verified in this repository:
+
+- [x] `mise --version` reports `2026.7.0`.
+- [x] `ruby --version` reports `3.4.10`.
+- [x] `node --version` reports `v26.4.0`.
+- [x] `pnpm --version` reports `11.12.0`.
+- [x] `rails --version` reports `8.1.3.1`.
 
 ## Task 0.2: Prepare a parent workspace
 
@@ -189,6 +197,8 @@ cd ~/workspaces
 ```
 
 Do not create the `rails_product_starter` directory manually. The Rails generator creates it in Phase 1.
+
+Current workspace is `/mnt/storage/Repository/FPK-Creative/starter/workspaces/rails_product_starter`.
 
 ---
 
@@ -251,7 +261,7 @@ Verified in this repository:
 
 ```bash
 cd rails_product_starter
-mise use ruby@3.4 node@24 pnpm@10
+mise use ruby@3.4 node@24 pnpm@11
 bin/rails about
 bin/rails db:create
 bin/rails db:migrate
@@ -268,7 +278,7 @@ Current verification status:
 - [x] `bin/rails db:migrate` succeeds.
 - [x] `bin/rails db:version` succeeds after PostgreSQL is running locally.
 
-- [ ] Commit runtime pins first, then the generated application:
+- [x] Phase 1 verified in the existing repository. Separate Phase 1 commits were skipped because Phase 2 dependency changes are already present in the working tree:
 
 ```bash
 git add mise.toml
@@ -302,7 +312,7 @@ Do not add Devise. Use the Rails authentication generator so the starter owns it
 
 Do not add Redis or Sidekiq at this stage. Keep Solid Queue, Solid Cache, and Solid Cable until metrics demonstrate a need to replace them.
 
-- [ ] Run:
+- [x] Run:
 
 ```bash
 bundle install
@@ -311,21 +321,21 @@ bundle exec ruby -e 'require "pundit"; require "pagy"; puts "ruby dependencies o
 
 ## Task 2.2: Initialize pnpm and Vite Ruby
 
-- [ ] Tell Vite Ruby to use pnpm for installation:
+- [x] Tell Vite Ruby to use pnpm for installation:
 
 ```bash
 export VITE_RUBY_PACKAGE_MANAGER=pnpm
 bundle exec vite install
 ```
 
-- [ ] If the installer produced an npm lockfile, remove it and reinstall with pnpm:
+- [x] If the installer produced an npm lockfile, remove it and reinstall with pnpm:
 
 ```bash
 rm -f package-lock.json yarn.lock
 pnpm install
 ```
 
-- [ ] Set the package manager in `package.json` to the exact installed pnpm version:
+- [x] Set the package manager in `package.json` to the exact installed pnpm version:
 
 ```bash
 pnpm --version
@@ -336,11 +346,18 @@ Example field:
 ```json
 {
   "private": true,
-  "packageManager": "pnpm@10.15.0"
+  "packageManager": "pnpm@11.12.0"
 }
 ```
 
 Use the actual output from `pnpm --version`, not the example version above.
+
+Verified in this repository:
+
+- [x] `package.json` sets `"packageManager": "pnpm@11.12.0"`.
+- [x] Ruby dependencies resolved to `vite_rails 3.11.1`, `vite_ruby 3.10.2`, `inertia_rails 3.22.0`, `pundit 2.5.2`, `rack-attack 6.8.0`, `pagy 43.6.1`, `rspec-rails 8.0.4`, `factory_bot_rails 6.5.1`, and `faker 3.8.0`.
+- [x] Frontend dependencies resolved with pnpm, including `svelte 5.56.8`, `@inertiajs/svelte 3.6.1`, `vite 8.2.0`, `@sveltejs/vite-plugin-svelte 7.2.0`, `tailwindcss 4.3.3`, `vitest 4.1.10`, `eslint 10.8.0`, `prettier 3.9.6`, and `@playwright/test 1.62.1`.
+- [x] TypeScript is pinned to `6.0.3` because TypeScript 7 did not satisfy current `svelte-check` and `typescript-eslint` peer ranges.
 
 ## Task 2.3: Install frontend dependencies
 
@@ -353,13 +370,13 @@ pnpm add -D eslint @eslint/js eslint-plugin-svelte prettier prettier-plugin-svel
 pnpm add -D @playwright/test
 ```
 
-- [ ] Install Playwright's Chromium browser for local and CI smoke tests:
+- [x] Install Playwright's Chromium browser for local and CI smoke tests:
 
 ```bash
 pnpm exec playwright install chromium
 ```
 
-- [ ] Commit dependency manifests:
+- [x] Commit dependency manifests:
 
 ```bash
 git add Gemfile Gemfile.lock package.json pnpm-lock.yaml config/vite.json vite.config.* bin/vite

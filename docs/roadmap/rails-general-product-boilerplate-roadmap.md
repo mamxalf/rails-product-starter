@@ -819,10 +819,23 @@ chmod +x bin/quality
 bin/quality
 ```
 
+## Task 4.5: Add optional local git hooks
+
+Add Lefthook as an optional developer convenience, not as the source of truth for quality. CI and `bin/quality` remain authoritative.
+
+Create a documented `lefthook.yml` with:
+
+- [ ] `pre-commit` runs fast checks only, such as RuboCop on Ruby changes and frontend lint/format checks on frontend changes.
+- [ ] `pre-push` runs `bin/quality` by default.
+- [ ] Hooks can be skipped only for documented emergencies; skipped checks must be run before opening or merging a pull request.
+- [ ] The README explains how to install, enable, disable, and troubleshoot hooks.
+
+Do not use Husky as the default. This is a Rails-first repository with Ruby and frontend checks; Lefthook keeps hooks language-neutral.
+
 - [ ] Commit:
 
 ```bash
-git add spec e2e app/frontend/test vitest.config.ts playwright.config.ts package.json bin/quality
+git add spec e2e app/frontend/test vitest.config.ts playwright.config.ts package.json bin/quality lefthook.yml
 git commit -m "test: add Rails frontend and browser quality gates"
 ```
 
@@ -873,6 +886,12 @@ add_index :users, :email_verified_at
 add_index :users, :suspended_at
 add_index :users, :deactivated_at
 ```
+
+Email uniqueness must be enforced by PostgreSQL, not only by Rails validations:
+
+- [ ] Keep the generated unique index on `email_address` if emails are always normalized before write.
+- [ ] Prefer a case-insensitive unique index such as `index_users_on_lower_email_address` when the database can receive mixed-case values.
+- [ ] Add a model/request spec proving duplicate emails with different casing cannot create two accounts.
 
 In `app/models/user.rb`:
 
@@ -1623,10 +1642,33 @@ Behavior:
 - [ ] Preserve Rails request IDs.
 - [ ] Add user ID and role as tagged log context after authentication.
 - [ ] Filter password, password confirmation, tokens, authorization headers, and sensitive metadata.
-- [ ] Document how to connect Sentry, AppSignal, or another service without making one provider mandatory.
+- [ ] Document how to connect Sentry, AppSignal, Skylight, or another service without making one provider mandatory.
+- [ ] Use Sentry as the primary documented error-tracking example, including `SENTRY_DSN`, environment, release/version tagging, sampling, and PII filtering.
+- [ ] Keep APM provider installation optional. Add Skylight or AppSignal only when a real product has production traffic and performance questions.
+- [ ] Document external uptime monitoring against `/up`, including alert channel, expected status, and response-time threshold.
 - [ ] Use `Rails.error.report` inside rescued background-job failures that need context.
 
-## Task 11.6: Security test cases
+## Task 11.6: Fail-fast production configuration
+
+Create a production-only configuration validation that raises a clear boot error when required production values are missing or placeholder-like.
+
+Validate:
+
+- [ ] `APP_HOST`
+- [ ] `APP_PROTOCOL`
+- [ ] `MAILER_FROM`
+- [ ] `DATABASE_URL` or equivalent production database configuration
+- [ ] `SECRET_KEY_BASE` or Rails credentials availability
+- [ ] S3-compatible storage variables only when production storage is configured to use S3
+
+Rules:
+
+- [ ] Development and test keep safe defaults.
+- [ ] Production does not silently fall back to `localhost`, `.test`, or dummy credentials.
+- [ ] The error message names missing keys without printing secret values.
+- [ ] A request/config spec covers missing required values.
+
+## Task 11.7: Security test cases
 
 - [ ] Member cannot enter admin routes.
 - [ ] Staff cannot alter admins.
@@ -1636,6 +1678,7 @@ Behavior:
 - [ ] Rate limits return 429.
 - [ ] Suspended user sessions are revoked.
 - [ ] Secrets are filtered from logs.
+- [ ] Audit metadata never stores passwords, raw tokens, authorization headers, or signed sensitive URLs.
 
 - [ ] Run `bin/quality` and commit.
 
@@ -1734,6 +1777,15 @@ pnpm run test:e2e
 
 The main branch must not accept a change when any required job fails.
 
+Create `.github/dependabot.yml` for:
+
+- [ ] Bundler.
+- [ ] pnpm.
+- [ ] GitHub Actions.
+- [ ] Docker base images when Dependabot supports the generated Dockerfile shape.
+
+Keep dependency update pull requests small and grouped by ecosystem. Security updates should not wait for the quarterly upgrade routine.
+
 ## Task 12.4: Production Docker verification
 
 Review the generated Rails Dockerfile and ensure it:
@@ -1753,7 +1805,15 @@ Build locally:
 docker build -t rails-product-starter:local .
 ```
 
-Run a smoke test with production-like environment variables and a disposable database.
+Create `bin/smoke_production` and run it against the local production image with production-like environment variables and a disposable database.
+
+The smoke script must verify:
+
+- [ ] The web process boots.
+- [ ] `/up` returns success.
+- [ ] Production assets are present and served.
+- [ ] The job process can start with the configured queue adapter.
+- [ ] Missing required production configuration fails clearly.
 
 ## Task 12.5: Deployment runbooks
 
@@ -1763,6 +1823,8 @@ Create:
 docs/runbooks/deploy-kamal.md
 docs/runbooks/deploy-dokploy.md
 docs/runbooks/database-backup-restore.md
+docs/runbooks/email-deliverability.md
+docs/runbooks/monitoring.md
 docs/runbooks/rollback.md
 docs/runbooks/rotate-secrets.md
 ```
@@ -1776,6 +1838,10 @@ Each deployment runbook must state:
 - Storage configuration.
 - Backup requirement.
 - Rollback procedure.
+
+`email-deliverability.md` must cover SPF, DKIM, DMARC, sender domain verification, sandbox/test mode, and provider-specific webhook notes without requiring a specific provider.
+
+`monitoring.md` must cover Sentry-style error tracking, optional APM such as Skylight or AppSignal, uptime checks against `/up`, alert routing, and what data must not be sent to providers.
 
 Do not configure two production platforms simultaneously in code. Keep Kamal's generated files as the default and document the changes required for Dokploy.
 
@@ -1844,7 +1910,25 @@ The script must:
 
 If safe Rails module renaming proves brittle, reduce the script scope: keep the internal `RailsProductStarter` module and change only branding, database, host, and repository metadata. Reliability is more important than aesthetic renaming.
 
-## Task 13.4: Template documentation
+## Task 13.4: Product-start questionnaire and module contract
+
+Create `docs/product-modules/new-product-checklist.md` to answer before using the starter for a real product:
+
+- [ ] What is the product's first paid or user-visible workflow?
+- [ ] Does it need billing now, or can access stay manual at launch?
+- [ ] Does it need organizations or teams now, or only individual accounts?
+- [ ] Does it need a public/mobile API now, or only server-rendered web flows?
+- [ ] What production host, email provider, storage provider, and deployment target will be used?
+- [ ] What data retention, backup, privacy, and support expectations apply?
+
+Create `docs/product-modules/module-contract.md` defining rules for optional modules:
+
+- [ ] Each module owns its namespace, routes, migrations, policies, jobs, tests, seed data, and removal notes.
+- [ ] A module may not add global callbacks or tenant scoping without tests proving isolation.
+- [ ] A module must document install, upgrade, and removal steps.
+- [ ] A module is promoted into core only after two real products need the same behavior.
+
+## Task 13.5: Template documentation
 
 Replace the generated README with sections:
 
@@ -1877,7 +1961,7 @@ docs/decisions/0005-solid-stack-first.md
 docs/decisions/0006-product-modules-not-core.md
 ```
 
-## Task 13.5: Upgrade policy
+## Task 13.6: Upgrade policy
 
 Document a quarterly maintenance routine:
 
@@ -1938,6 +2022,8 @@ bin/quality
 - [ ] `bin/quality` passes.
 - [ ] Production assets compile.
 - [ ] Docker image builds and responds at `/up`.
+- [ ] `bin/smoke_production` passes against a production-like container.
+- [ ] A local database backup can be restored into a fresh database and pass the smoke check.
 - [ ] No product-specific model exists in the core schema.
 - [ ] README is sufficient for a developer with no previous project context.
 
@@ -2117,4 +2203,3 @@ A task is done only when all applicable statements are true:
 - Svelte packages and official Vite plugin: https://svelte.dev/packages
 - Tailwind CSS with Vite: https://tailwindcss.com/docs/installation/using-vite
 - Playwright installation: https://playwright.dev/docs/intro
-

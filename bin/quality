@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-bundle exec rubocop
-bundle exec brakeman -q
-bundle exec bundler-audit check --update
-bundle exec rspec
-pnpm run check
-pnpm run lint
-pnpm run format:check
-pnpm run test
-RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 bin/rails assets:precompile
+step() {
+  local name="$1"
+  shift
+  local start=$SECONDS
+
+  printf '\n==> %s\n' "$name"
+  "$@"
+  printf '==> %s done (%ss)\n' "$name" "$((SECONDS - start))"
+}
+
+step "RuboCop" bundle exec rubocop
+step "Brakeman" bundle exec brakeman -q --no-pager
+step "Bundler audit" bundle exec bundler-audit check --update
+step "RSpec" bundle exec rspec
+step "Svelte check" pnpm run check
+step "ESLint" pnpm run lint
+step "Prettier check" pnpm run format:check
+step "Vitest" pnpm run test
+step "Assets precompile" env RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 bin/rails assets:precompile

@@ -117,6 +117,8 @@ GEM
     ffi (1.17.4-arm-linux-musl)
     ffi (1.17.4-x86_64-linux-gnu)
     ffi (1.17.4-x86_64-linux-musl)
+    foreman (0.90.0)
+      thor (~> 1.4)
     fugit (1.13.0)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
@@ -402,6 +404,7 @@ DEPENDENCIES
   debug
   factory_bot_rails (~> 6.5)
   faker (~> 3.8)
+  foreman
   image_processing (~> 1.2)
   inertia_rails (~> 3.22)
   kamal

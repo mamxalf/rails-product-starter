@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title><%= content_for(:title) || ENV.fetch("APP_NAME", "Starter App") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= vite_client_tag %>
+    <%= vite_typescript_tag "application.ts" %>
+  </head>
+  <body>
+    <%= render "shared/admin_navigation" %>
+    <%= render "shared/flash" %>
+    <%= yield %>
+  </body>
+</html>

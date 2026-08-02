@@ -1,0 +1,5 @@
+<% flash.each do |type, message| %>
+  <div role="status" data-flash-type="<%= type %>">
+    <%= message %>
+  </div>
+<% end %>

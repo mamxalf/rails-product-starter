@@ -138,7 +138,7 @@ rails_product_starter/
 - [x] Phase 0 — Prepare toolchain and repository.
 - [x] Phase 1 — Generate the Rails application.
 - [x] Phase 2 — Install Ruby and frontend dependencies.
-- [ ] Phase 3 — Configure Vite, Svelte, Hotwire, Inertia, and Tailwind.
+- [x] Phase 3 — Configure Vite, Svelte, Hotwire, Inertia, and Tailwind.
 - [ ] Phase 4 — Establish tests, linting, formatting, and local development commands.
 - [ ] Phase 5 — Generate and complete authentication.
 - [ ] Phase 6 — Add profiles, roles, policies, and account settings.
@@ -408,7 +408,7 @@ export default defineConfig({
 })
 ```
 
-- [ ] Ensure `config/vite.json` uses:
+- [x] Ensure `config/vite.json` uses:
 
 ```json
 {
@@ -518,15 +518,20 @@ SSR: No
 
 After generation:
 
-- [ ] Keep one Vite configuration.
-- [ ] Keep one global CSS entrypoint.
-- [ ] Remove duplicate sample pages that are not used.
-- [ ] Preserve the generated Inertia page resolver.
+- [x] Keep one Vite configuration.
+- [x] Keep one global CSS entrypoint.
+- [x] Remove duplicate sample pages that are not used.
+- [x] Preserve the generated Inertia page resolver.
+
+Verified in this repository:
+
+- [x] Applied the Inertia generator-equivalent files manually instead of running `bin/rails generate inertia:install`, because generator dry-run output attempted unwanted package upgrades to `latest` and `bin/dev` replacement.
+- [x] Added only the extra frontend packages required by the installed type surfaces: `axios` for Inertia core types and `@types/node` for the Vite config.
 
 Create or normalize `app/frontend/entrypoints/inertia.ts`:
 
 ```ts
-import { createInertiaApp } from "@inertiajs/svelte"
+import { createInertiaApp, type ResolvedComponent } from "@inertiajs/svelte"
 import { mount } from "svelte"
 import "@/styles/application.css"
 
@@ -539,10 +544,13 @@ createInertiaApp({
       throw new Error(`Unknown Inertia page: ${name}`)
     }
 
-    const page = (await importer()) as { default: unknown }
-    return page.default
+    return (await importer()) as ResolvedComponent
   },
   setup({ el, App, props }) {
+    if (!el) {
+      throw new Error("Missing Inertia mount element")
+    }
+
     mount(App, { target: el, props })
   },
   progress: {
@@ -608,14 +616,14 @@ jobs: bin/jobs start
 
 Create or update `bin/dev` to use Foreman or Overmind. Keep the command repository-local and documented.
 
-- [ ] Verify:
+- [x] Verify:
 
 ```bash
 bin/dev
 ```
 
-- [ ] Open `http://localhost:3000` and confirm no missing Vite entrypoint errors.
-- [ ] Run a production build:
+- [x] Open `http://localhost:3000` and confirm no missing Vite entrypoint errors.
+- [x] Run a production build:
 
 ```bash
 RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 bin/rails assets:precompile
@@ -627,6 +635,21 @@ RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 bin/rails assets:precompile
 git add app/frontend app/views/layouts config/vite.json vite.config.ts Procfile.dev bin/dev
 git commit -m "feat: configure Vite Hotwire Inertia and Svelte"
 ```
+
+Verified in this repository:
+
+- [x] `bundle install`
+- [x] `bundle exec rails runner 'require "foreman"; require "inertia_rails"; puts "phase 3 ruby dependencies ok"'`
+- [x] `pnpm install --frozen-lockfile`
+- [x] `pnpm peers check`
+- [x] `pnpm exec vite --version`
+- [x] `pnpm exec tsc -p tsconfig.node.json`
+- [x] `pnpm exec svelte-check --tsconfig ./tsconfig.json` reports 0 errors and only warns that Phase 3 has no real `.svelte` pages yet.
+- [x] `bin/vite build`
+- [x] `RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 bin/rails assets:precompile`
+- [x] `bin/rails runner 'ApplicationController.render(inline: "ok", layout: "application"); ApplicationController.render(inline: "ok", layout: "admin"); ApplicationController.render(inline: "ok", layout: "inertia"); puts "phase 3 layouts render ok"'`
+- [x] `bin/rails db:prepare` created `rails_product_starter_development_queue` for Solid Queue.
+- [x] `bin/dev` boots Rails on 3000, Vite on 3036, and Solid Queue; all exit cleanly on Ctrl-C.
 
 ---
 

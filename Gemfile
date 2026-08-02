@@ -49,6 +49,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "foreman", require: false
 end
 
 gem "vite_rails", "~> 3.11"

@@ -1,0 +1,7 @@
+<footer class="border-t border-zinc-200 bg-white">
+  <div class="mx-auto flex max-w-5xl flex-wrap gap-4 px-6 py-6 text-sm text-zinc-600">
+    <span>&copy; <%= Time.current.year %> <%= ENV.fetch("APP_NAME", "Starter App") %></span>
+    <%= link_to t("public.nav.privacy"), privacy_path, class: "hover:text-zinc-950" %>
+    <%= link_to t("public.nav.terms"), terms_path, class: "hover:text-zinc-950" %>
+  </div>
+</footer>

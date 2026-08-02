@@ -1,0 +1,10 @@
+<main class="flex min-h-screen items-center justify-center bg-zinc-50 px-6 py-12">
+  <section class="w-full max-w-sm rounded-md border border-zinc-200 bg-white p-6 shadow-sm" aria-labelledby="auth-title">
+    <p class="text-sm font-semibold text-zinc-950"><%= ENV.fetch("APP_NAME", "Starter App") %></p>
+    <h1 id="auth-title" class="mt-6 text-2xl font-semibold text-zinc-950"><%= title %></h1>
+    <% if local_assigns[:body].present? %>
+      <p class="mt-2 text-sm text-zinc-600"><%= body %></p>
+    <% end %>
+    <%= yield %>
+  </section>
+</main>

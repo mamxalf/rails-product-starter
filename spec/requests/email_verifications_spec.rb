@@ -13,7 +13,7 @@ RSpec.describe "Email verifications", type: :request do
 
     expect(first_verified_at).to be_present
     expect(user.reload.email_verified_at.to_i).to eq(first_verified_at.to_i)
-    expect(response).to redirect_to(app_path)
+    expect(response).to redirect_to(app_dashboard_path)
   end
 
   it "rejects invalid, expired, and wrong-purpose tokens safely" do
@@ -51,11 +51,11 @@ RSpec.describe "Email verifications", type: :request do
     user = User.create!(name: "Member", email_address: "member@example.com", password: "password123")
     post session_path, params: { email_address: user.email_address, password: "password123" }
 
-    get app_path
+    get app_dashboard_path
     expect(response).to redirect_to(new_session_path)
 
     user.update!(email_verified_at: Time.current, suspended_at: Time.current)
-    get app_path
+    get app_dashboard_path
     expect(response).to redirect_to(new_session_path)
   end
 
@@ -63,7 +63,7 @@ RSpec.describe "Email verifications", type: :request do
     user = User.create!(name: "Member", email_address: "member@example.com", password: "password123", email_verified_at: Time.current)
     post session_path, params: { email_address: user.email_address, password: "password123" }
 
-    get app_path
+    get app_dashboard_path
 
     expect(response).to have_http_status(:ok)
   end

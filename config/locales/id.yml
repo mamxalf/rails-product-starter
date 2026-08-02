@@ -1,14 +1,70 @@
 id:
   forms:
     email_address: "Alamat email"
+    errors_title: "Perbaiki kolom yang ditandai."
+    password_confirmation: "Konfirmasi kata sandi"
   navigation:
     sign_out: "Keluar"
+  app:
+    layout:
+      dashboard: "Dasbor"
+      settings: "Pengaturan"
+      notifications: "Notifikasi"
+      sign_out: "Keluar"
+    dashboard:
+      admin: "Admin"
+      title: "Dasbor"
+      welcome: "Selamat datang"
+      welcome_line: "Selamat datang, %{name}."
+      welcome_body: "Ruang kerja akun Anda siap."
+      verified: "Akun terverifikasi"
+      verified_body: "Akses akun aktif."
+      notifications: "Notifikasi"
+      no_notifications: "Belum ada notifikasi."
+      metrics: "Metrik produk"
+      metrics_body: "Hubungkan data produk nyata di sini saat modelnya tersedia."
+  public:
+    nav:
+      about: "Tentang"
+      contact: "Kontak"
+      privacy: "Privasi"
+      terms: "Ketentuan"
+    home:
+      eyebrow: "Fondasi produk"
+      title: "Starter Rails sederhana yang siap akun."
+      body: "Mulai dengan autentikasi, pengaturan, dukungan bahasa, dan shell aplikasi yang bersih."
+    about:
+      title: "Tentang"
+      body: "Layanan ini menyediakan fondasi terarah untuk produk berbasis akun."
+    privacy:
+      title: "Privasi"
+      body: "Detail privasi perlu mengikuti data produk yang Anda kumpulkan."
+    terms:
+      title: "Ketentuan"
+      body: "Ketentuan perlu ditinjau untuk produk dan pasar sebelum peluncuran."
+    contact:
+      title: "Kontak"
+      body: "Gunakan kanal dukungan Anda di sini saat produk siap."
   sessions:
     new:
       title: "Masuk"
       new_here: "Baru di sini?"
       create_account: "Buat akun"
       forgot_password: "Lupa kata sandi?"
+  registrations:
+    new:
+      title: "Buat akun"
+      have_account: "Sudah punya akun?"
+  passwords:
+    new:
+      title: "Atur ulang kata sandi"
+      body: "Masukkan alamat email dan kami akan mengirim instruksi pengaturan ulang."
+      submit: "Kirim instruksi"
+      back: "Kembali masuk"
+    edit:
+      title: "Perbarui kata sandi"
+      password: "Kata sandi baru"
+      submit: "Simpan kata sandi"
   passwords_mailer:
     reset:
       subject: "Atur ulang kata sandi"

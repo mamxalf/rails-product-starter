@@ -8,9 +8,9 @@ RSpec.describe "Authentication", type: :request do
 
     post session_path, params: { email_address: user.email_address, password: "password123" }
 
-    expect(response).to redirect_to(app_path)
+    expect(response).to redirect_to(app_dashboard_path)
     follow_redirect!
-    expect(response.body).to include("App")
+    expect(response.body).to include("Dashboard")
   end
 
   it "rejects invalid credentials" do
@@ -27,7 +27,7 @@ RSpec.describe "Authentication", type: :request do
     post session_path, params: { email_address: user.email_address, password: "password123" }
 
     delete session_path
-    get app_path
+    get app_dashboard_path
 
     expect(response).to redirect_to(new_session_path)
   end

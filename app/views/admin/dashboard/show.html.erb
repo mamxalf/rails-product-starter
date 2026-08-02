@@ -1,0 +1,19 @@
+<% content_for :title, "Admin" %>
+
+<main class="mx-auto max-w-6xl px-6 py-8">
+  <h1 class="text-2xl font-semibold text-zinc-950">Admin</h1>
+  <dl class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <% @counts.each do |label, count| %>
+      <div class="rounded-md border border-zinc-200 bg-white p-4">
+        <dt class="text-sm text-zinc-600"><%= label.to_s.titleize %></dt>
+        <dd class="mt-2 text-3xl font-semibold text-zinc-950"><%= count %></dd>
+      </div>
+    <% end %>
+  </dl>
+
+  <div class="mt-8 grid gap-4 lg:grid-cols-3">
+    <%= render "shared/empty_state", title: "Audit events", body: "Audit event models arrive in a later phase." %>
+    <%= render "shared/empty_state", title: "Failed mail", body: "Mail failure tracking arrives in a later phase." %>
+    <%= render "shared/empty_state", title: "Jobs", body: "Job warning models arrive in a later phase." %>
+  </div>
+</main>

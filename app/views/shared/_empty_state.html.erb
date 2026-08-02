@@ -1,0 +1,6 @@
+<div class="rounded-md border border-dashed border-zinc-300 p-6 text-sm text-zinc-600">
+  <p class="font-medium text-zinc-900"><%= local_assigns.fetch(:title) %></p>
+  <% if local_assigns[:body].present? %>
+    <p class="mt-1"><%= local_assigns[:body] %></p>
+  <% end %>
+</div>

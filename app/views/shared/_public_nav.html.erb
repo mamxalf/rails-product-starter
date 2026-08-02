@@ -1,0 +1,10 @@
+<nav class="border-b border-zinc-200 bg-white">
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <%= link_to ENV.fetch("APP_NAME", "Starter App"), root_path, class: "text-sm font-semibold text-zinc-950" %>
+    <div class="flex gap-4 text-sm">
+      <%= link_to t("public.nav.about"), about_path, class: "text-zinc-700 hover:text-zinc-950" %>
+      <%= link_to t("public.nav.contact"), contact_path, class: "text-zinc-700 hover:text-zinc-950" %>
+      <%= link_to t("sessions.new.title"), new_session_path, class: "font-medium text-zinc-950" %>
+    </div>
+  </div>
+</nav>

@@ -6,7 +6,7 @@ class EmailVerificationsController < ApplicationController
     if user = Accounts::EmailVerificationToken.find(params[:token])
       user.update!(email_verified_at: Time.current) unless user.email_verified?
       start_new_session_for(user) unless Current.user == user
-      redirect_to app_path, notice: "Email address verified."
+      redirect_to app_dashboard_path, notice: "Email address verified."
     else
       redirect_to new_session_path, alert: "Email verification link is invalid or expired."
     end
@@ -17,7 +17,7 @@ class EmailVerificationsController < ApplicationController
 
     EmailVerificationMailer.verification(Current.user).deliver_later unless Current.user.email_verified?
     session[:email_verification_sent_at] = Time.current.to_i
-    redirect_to app_path, notice: "Verification email sent."
+    redirect_to app_dashboard_path, notice: "Verification email sent."
   end
 
   private

@@ -18,6 +18,12 @@ class App::BaseController < ApplicationController
         }
       },
       locale: I18n.locale.to_s,
+      i18n: {
+        app: {
+          layout: t("app.layout"),
+          dashboard: t("app.dashboard", name: user&.name)
+        }
+      },
       permissions: {
         access_admin: user && UserPolicy.new(user, user).access_admin?
       },

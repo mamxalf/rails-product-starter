@@ -1,21 +1,17 @@
-<% content_for :title, "Update password" %>
+<% content_for :title, t("passwords.edit.title") %>
 
-<main class="flex min-h-screen items-center justify-center bg-zinc-50 px-6 py-12">
-  <div class="w-full max-w-sm">
-    <h1 class="text-2xl font-semibold text-zinc-950">Update password</h1>
+<%= render "shared/auth_card", title: t("passwords.edit.title") do %>
+  <%= form_with url: password_path(params[:token]), method: :put, class: "mt-6 space-y-4" do |form| %>
+    <div>
+      <%= form.label :password, t("passwords.edit.password"), class: "block text-sm font-medium text-zinc-800" %>
+      <%= form.password_field :password, required: true, autocomplete: "new-password", maxlength: 72, class: "mt-2 block w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-zinc-950 shadow-sm focus:border-zinc-950 focus:outline-none" %>
+    </div>
 
-    <%= form_with url: password_path(params[:token]), method: :put, class: "mt-6 space-y-4" do |form| %>
-      <div>
-        <%= form.label :password, "New password", class: "block text-sm font-medium text-zinc-800" %>
-        <%= form.password_field :password, required: true, autocomplete: "new-password", maxlength: 72, class: "mt-2 block w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-zinc-950 shadow-sm focus:border-zinc-950 focus:outline-none" %>
-      </div>
+    <div>
+      <%= form.label :password_confirmation, t("forms.password_confirmation"), class: "block text-sm font-medium text-zinc-800" %>
+      <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", maxlength: 72, class: "mt-2 block w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-zinc-950 shadow-sm focus:border-zinc-950 focus:outline-none" %>
+    </div>
 
-      <div>
-        <%= form.label :password_confirmation, "Confirm password", class: "block text-sm font-medium text-zinc-800" %>
-        <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", maxlength: 72, class: "mt-2 block w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-zinc-950 shadow-sm focus:border-zinc-950 focus:outline-none" %>
-      </div>
-
-      <%= form.submit "Save password", class: "w-full rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-white hover:bg-zinc-800" %>
-    <% end %>
-  </div>
-</main>
+    <%= form.submit t("passwords.edit.submit"), class: "w-full rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-white hover:bg-zinc-800" %>
+  <% end %>
+<% end %>

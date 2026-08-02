@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
       authenticated? && Current.user&.preferred_locale
     end
 
+    def pundit_user
+      Current.user
+    end
+
     def available_locale?(locale)
       locale.to_s.in?(I18n.available_locales.map(&:to_s))
     end

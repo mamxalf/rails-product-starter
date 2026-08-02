@@ -22,7 +22,7 @@ RSpec.describe "Registrations", type: :request do
     expect(user.email_address).to eq("new@example.com")
     expect(user.email_verified_at).to be_nil
     expect(user.suspended_at).to be_nil
-    expect(response).to redirect_to(app_path)
+    expect(response).to redirect_to(app_dashboard_path)
   end
 
   it "rerenders invalid registrations with non-password fields preserved" do

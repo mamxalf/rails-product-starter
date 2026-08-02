@@ -3,6 +3,6 @@ module StaffAccessRequired
 
   private
     def require_staff_access
-      redirect_to app_path, alert: "You cannot access that page." unless Current.user&.staff? || Current.user&.admin?
+      redirect_to app_dashboard_path, alert: "You cannot access that page." unless Current.user&.staff? || Current.user&.admin?
     end
 end

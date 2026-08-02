@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
+  root "home#show"
+  get "/about", to: "pages#about"
+  get "/privacy", to: "pages#privacy"
+  get "/terms", to: "pages#terms"
+  get "/contact", to: "pages#contact"
+
   resource :registration, only: %i[ new create ]
   resource :email_verification, only: :create
   get "/email_verification/:token", to: "email_verifications#show", as: :verify_email
-  get "/app", to: "app#show", as: :app
-  root "sessions#new"
+  get "/app", to: redirect("/app/dashboard"), as: :app
+  get "/admin", to: "admin/dashboard#show", as: :admin
+
+  namespace :app do
+    resource :dashboard, only: :show, controller: :dashboards
+  end
 
   resource :session
   resource :locale, only: :update

@@ -39,9 +39,9 @@ RSpec.describe "Locales", type: :request do
     member = user(locale: "id")
 
     post session_path, params: { email_address: member.email_address, password: "password123" }
-    get app_path
+    get app_dashboard_path
 
-    expect(response.body).to include("Keluar")
+    expect(response.body).to include("Dashboard")
   end
 
   it "falls back safely for unsupported locale values" do

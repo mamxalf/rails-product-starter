@@ -12,7 +12,7 @@ class RegistrationsController < ApplicationController
     if @user.save
       start_new_session_for @user
       EmailVerificationMailer.verification(@user).deliver_later
-      redirect_to app_path, notice: "Account created. Check your email to verify your address."
+      redirect_to app_dashboard_path, notice: "Account created. Check your email to verify your address."
     else
       render :new, status: :unprocessable_entity
     end

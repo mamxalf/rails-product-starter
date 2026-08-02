@@ -1,14 +1,70 @@
 en:
   forms:
     email_address: "Email address"
+    errors_title: "Please fix the highlighted fields."
+    password_confirmation: "Confirm password"
   navigation:
     sign_out: "Sign out"
+  app:
+    layout:
+      dashboard: "Dashboard"
+      settings: "Settings"
+      notifications: "Notifications"
+      sign_out: "Sign out"
+    dashboard:
+      admin: "Admin"
+      title: "Dashboard"
+      welcome: "Welcome"
+      welcome_line: "Welcome, %{name}."
+      welcome_body: "Your account workspace is ready."
+      verified: "Verified account"
+      verified_body: "Account access is active."
+      notifications: "Notifications"
+      no_notifications: "No notifications yet."
+      metrics: "Product metrics"
+      metrics_body: "Connect real product data here when those models exist."
+  public:
+    nav:
+      about: "About"
+      contact: "Contact"
+      privacy: "Privacy"
+      terms: "Terms"
+    home:
+      eyebrow: "Product foundation"
+      title: "A simple account-ready Rails starter."
+      body: "Start with authentication, settings, locale support, and clean application shells."
+    about:
+      title: "About"
+      body: "This service provides a focused foundation for account-based products."
+    privacy:
+      title: "Privacy"
+      body: "Privacy details will reflect the product data you choose to collect."
+    terms:
+      title: "Terms"
+      body: "Terms should be reviewed for the product and market before launch."
+    contact:
+      title: "Contact"
+      body: "Use your support channel here when the product is ready."
   sessions:
     new:
       title: "Sign in"
       new_here: "New here?"
       create_account: "Create an account"
       forgot_password: "Forgot password?"
+  registrations:
+    new:
+      title: "Create account"
+      have_account: "Already have an account?"
+  passwords:
+    new:
+      title: "Reset password"
+      body: "Enter your email address and we will send reset instructions."
+      submit: "Email reset instructions"
+      back: "Back to sign in"
+    edit:
+      title: "Update password"
+      password: "New password"
+      submit: "Save password"
   passwords_mailer:
     reset:
       subject: "Reset your password"

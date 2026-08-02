@@ -21,6 +21,10 @@ RSpec.describe "Shells", type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include(ENV.fetch("APP_NAME", "Starter App"))
     end
+
+    get root_path
+    expect(response.body).to include(new_session_path)
+    expect(response.body).to include(new_registration_path)
   end
 
   it "renders auth pages with labels, errors, and cross-links" do
@@ -79,5 +83,11 @@ RSpec.describe "Shells", type: :request do
     expect(response.body).to include("Staff")
     expect(response.body).to include("Unverified")
     expect(response.body).to include("Suspended")
+    expect(response.body).to include("Dashboard")
+    expect(response.body).to include("Users")
+    expect(response.body).to include("Notifications")
+    expect(response.body).to include("Audit events")
+    expect(response.body).to include("Jobs")
+    expect(response.body).to include(app_dashboard_path)
   end
 end

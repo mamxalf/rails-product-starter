@@ -143,7 +143,7 @@ rails_product_starter/
 - [ ] Phase 5 — Generate and complete authentication.
 - [x] Phase 6 — Add profiles, roles, policies, and account settings.
 - [x] Phase 7 — Add internationalization and locale persistence.
-- [ ] Phase 8 — Build public, authentication, member, and admin application shells.
+- [x] Phase 8 — Build public, authentication, member, and admin application shells.
 - [ ] Phase 9 — Add generic admin user management.
 - [ ] Phase 10 — Add notifications, uploads, jobs, and mail delivery.
 - [ ] Phase 11 — Add auditing, security controls, errors, and observability.
@@ -1282,25 +1282,25 @@ app/views/shared/_form_errors.html.erb
 
 Create an authentication layout or reusable card with:
 
-- [ ] Product name.
-- [ ] Accessible labels.
-- [ ] Password manager-friendly fields.
-- [ ] Error summary.
-- [ ] Link between login, registration, and password reset.
-- [ ] No social login buttons until a provider is actually configured.
+- [x] Product name.
+- [x] Accessible labels.
+- [x] Password manager-friendly fields.
+- [x] Error summary.
+- [x] Link between login, registration, and password reset.
+- [x] No social login buttons until a provider is actually configured.
 
 ## Task 8.3: Member Inertia shell
 
 Create `app/frontend/layouts/AppLayout.svelte` with:
 
-- [ ] Desktop sidebar.
-- [ ] Mobile navigation.
-- [ ] Current-user menu.
-- [ ] Locale switcher.
-- [ ] Notification indicator.
-- [ ] Flash toast region.
-- [ ] Main content landmark.
-- [ ] Logout action using an Inertia request.
+- [x] Desktop sidebar.
+- [x] Mobile navigation.
+- [x] Current-user menu.
+- [x] Locale switcher.
+- [x] Notification indicator.
+- [x] Flash toast region.
+- [x] Main content landmark.
+- [x] Logout action using an Inertia request.
 
 Create `app/frontend/pages/app/Dashboard.svelte` with product-neutral cards:
 
@@ -1388,9 +1388,9 @@ Rails.application.routes.draw do
 end
 ```
 
-- [ ] Add route specs or request specs for access control.
-- [ ] Run `bin/rails routes` and confirm there are no duplicate route helpers.
-- [ ] Run `bin/quality` and commit.
+- [x] Add route specs or request specs for access control.
+- [x] Run `bin/rails routes` and confirm there are no duplicate route helpers.
+- [x] Run `bin/quality` and commit.
 
 ---
 

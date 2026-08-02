@@ -7,7 +7,7 @@
   <p class="mt-4 max-w-2xl text-zinc-600"><%= t("public.home.body") %></p>
   <div class="mt-8 flex gap-3">
     <%= link_to t("sessions.new.title"), new_session_path, class: "rounded-md bg-zinc-950 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800" %>
-    <%= link_to t("public.nav.about"), about_path, class: "rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-zinc-50" %>
+    <%= link_to t("sessions.new.create_account"), new_registration_path, class: "rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-zinc-50" %>
   </div>
 </main>
 <%= render "shared/footer" %>

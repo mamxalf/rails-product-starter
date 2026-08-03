@@ -29,12 +29,14 @@ RSpec.describe "Settings", type: :request do
   end
 
   it "renders settings pages for verified active users" do
-    user = create_user
+    user = create_user(role: :staff)
     sign_in(user)
 
     [ settings_profile_path, settings_security_path, settings_preferences_path, settings_sessions_path, settings_account_path ].each do |path|
       get path
       expect(response).to have_http_status(:ok)
+      expect(response.body).to include("Dashboard", "Notifications", "Settings")
+      expect(response.body).to include(admin_path)
     end
   end
 

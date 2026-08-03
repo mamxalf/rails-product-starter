@@ -36,8 +36,13 @@ RSpec.describe "App notifications", type: :request do
 
     get app_notifications_path
     expect(response).to have_http_status(:ok)
+    expect(response.body).to include("Notifications")
+    expect(response.body).to include("1 unread")
+    expect(response.body).to include(read_all_app_notifications_path)
+    expect(response.body).to include(app_notification_path(own))
     expect(response.body).to include("Welcome")
     expect(response.body).not_to include("Other")
+    expect(response.body).not_to include("inertia")
 
     patch app_notification_path(own)
     expect(response).to redirect_to(app_notifications_path)

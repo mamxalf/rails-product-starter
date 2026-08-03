@@ -1,9 +1,14 @@
 import { render, screen } from "@testing-library/svelte"
 import { createRawSnippet } from "svelte"
-import { describe, expect, it } from "vitest"
+import { beforeEach, describe, expect, it } from "vitest"
 import AppLayout from "./AppLayout.svelte"
 
 describe("AppLayout", () => {
+  beforeEach(() => {
+    document.head.innerHTML =
+      '<meta name="csrf-token" content="test-csrf-token">'
+  })
+
   it("renders navigation, identity, locale controls, flash, and main content", () => {
     render(AppLayout, {
       props: {
@@ -30,13 +35,34 @@ describe("AppLayout", () => {
     })
 
     expect(screen.getAllByRole("navigation", { name: "Member" })).toHaveLength(
+      1,
+    )
+    expect(
+      screen.getByRole("button", { name: "Open sidebar" }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole("button", { name: "Close sidebar" }),
+    ).toBeInTheDocument()
+    expect(screen.getByText("member@example.com")).toBeInTheDocument()
+    expect(screen.getAllByRole("link", { name: "Notifications" })).toHaveLength(
       2,
     )
-    expect(screen.getByText("member@example.com")).toBeInTheDocument()
     expect(
-      screen.getByRole("link", { name: "Notifications" }),
+      screen.getAllByRole("link", { name: "Notifications" })[0],
     ).toHaveTextContent("3")
     expect(screen.getByRole("button", { name: "ID" })).toBeInTheDocument()
+    const signOutForm = screen
+      .getByRole("button", { name: "Sign out" })
+      .closest("form")
+    expect(signOutForm).toHaveAttribute("method", "post")
+    expect(signOutForm).toHaveAttribute("action", "/session")
+    expect(signOutForm?.querySelector('input[name="_method"]')).toHaveAttribute(
+      "value",
+      "delete",
+    )
+    expect(
+      signOutForm?.querySelector('input[name="authenticity_token"]'),
+    ).toHaveAttribute("value", "test-csrf-token")
     expect(screen.getByText("Saved")).toBeInTheDocument()
     expect(screen.getByRole("main")).toHaveTextContent("Account status")
   })
@@ -66,7 +92,7 @@ describe("AppLayout", () => {
       },
     })
 
-    expect(screen.getAllByText("Dasbor")).toHaveLength(2)
+    expect(screen.getAllByText("Dasbor")).toHaveLength(3)
     expect(screen.getAllByText("Pengaturan")).toHaveLength(2)
     expect(screen.getByRole("button", { name: "Keluar" })).toBeInTheDocument()
   })
@@ -96,9 +122,9 @@ describe("AppLayout", () => {
       },
     })
 
-    expect(screen.getAllByText("Workspace")).toHaveLength(2)
+    expect(screen.getAllByText("Workspace")).toHaveLength(3)
     expect(screen.getAllByText("Profile")).toHaveLength(2)
-    expect(screen.getByLabelText("Alerts")).toBeInTheDocument()
+    expect(screen.getAllByLabelText("Alerts")).toHaveLength(2)
     expect(screen.getByRole("button", { name: "Leave" })).toBeInTheDocument()
   })
 })

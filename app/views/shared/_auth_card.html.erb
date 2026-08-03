@@ -1,10 +1,21 @@
-<main class="flex min-h-screen items-center justify-center bg-zinc-50 px-6 py-12">
-  <section class="w-full max-w-sm rounded-md border border-zinc-200 bg-white p-6 shadow-sm" aria-labelledby="auth-title">
-    <p class="text-sm font-semibold text-zinc-950"><%= ENV.fetch("APP_NAME", "Starter App") %></p>
-    <h1 id="auth-title" class="mt-6 text-2xl font-semibold text-zinc-950"><%= title %></h1>
+<main class="flex min-h-screen flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <p class="text-center text-sm font-semibold text-gray-950"><%= ENV.fetch("APP_NAME", "Starter App") %></p>
+    <h1 id="auth-title" class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900"><%= title %></h1>
     <% if local_assigns[:body].present? %>
-      <p class="mt-2 text-sm text-zinc-600"><%= body %></p>
+      <p class="mt-2 text-center text-sm/6 text-gray-600"><%= body %></p>
     <% end %>
-    <%= yield %>
+  </div>
+
+  <section class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]" aria-labelledby="auth-title">
+    <div class="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12">
+      <% flash.each do |type, message| %>
+        <div role="<%= type.to_s == "alert" ? "alert" : "status" %>" class="mb-6 rounded-md border px-4 py-3 text-sm <%= type.to_s == "alert" ? "border-red-200 bg-red-50 text-red-800" : "border-emerald-200 bg-emerald-50 text-emerald-800" %>">
+          <%= message %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
   </section>
 </main>

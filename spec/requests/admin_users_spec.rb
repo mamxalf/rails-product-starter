@@ -39,6 +39,8 @@ RSpec.describe "Admin users", type: :request do
 
     expect(response).to have_http_status(:ok)
     expect(response.body).to include("Visible Member")
+    expect(response.body).to include("Admin Dashboard", "Users", "Notifications", "Back to app")
+    expect(response.body).not_to include(app_notifications_path)
     expect(response.body).to include(admin_user_path(member))
     expect(response.body).not_to include("password_digest")
     expect(response.body).not_to include("reset_token")

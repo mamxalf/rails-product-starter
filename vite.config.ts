@@ -6,6 +6,11 @@ import tailwindcss from "@tailwindcss/vite"
 
 export default defineConfig({
   plugins: [RubyPlugin(), tailwindcss(), svelte()],
+  server: {
+    cors: {
+      origin: ["null", /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/],
+    },
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./app/frontend", import.meta.url)),

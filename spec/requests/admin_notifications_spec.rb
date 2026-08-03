@@ -23,6 +23,8 @@ RSpec.describe "Admin notifications", type: :request do
     get admin_notifications_path
     expect(response).to have_http_status(:ok)
     expect(response.body).to include("Announcements")
+    expect(response.body).to include("Admin Dashboard", "Users", "Notifications", "Back to app")
+    expect(response.body).not_to include(app_notifications_path)
 
     post admin_notifications_path, params: { announcement: { title: "News", body: "Body", audience: "members" } }
     expect(response).to redirect_to(root_path)

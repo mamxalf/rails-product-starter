@@ -61,6 +61,24 @@ RSpec.describe "Shells", type: :request do
     follow_redirect!
     expect(response).to have_http_status(:ok)
     expect(response.body).to include("Dashboard")
+    expect(response.body).to include("Notifications")
+    expect(response.body).to include("Settings")
+    expect(response.body).not_to include("inertia")
+  end
+
+  it "shows admin access in the app sidebar only for staff and admins" do
+    member = create_user(role: :member)
+    staff = create_user(role: :staff)
+
+    sign_in(member)
+    get app_dashboard_path
+    expect(response.body).to include("Dashboard", "Notifications", "Settings")
+    expect(response.body).not_to include("Admin")
+
+    sign_in(staff)
+    get app_dashboard_path
+    expect(response.body).to include("Admin")
+    expect(response.body).to include(admin_path)
   end
 
   it "authorizes the admin dashboard and shows real user counts" do
@@ -83,11 +101,12 @@ RSpec.describe "Shells", type: :request do
     expect(response.body).to include("Staff")
     expect(response.body).to include("Unverified")
     expect(response.body).to include("Suspended")
-    expect(response.body).to include("Dashboard")
+    expect(response.body).to include("Admin Dashboard")
     expect(response.body).to include("Users")
     expect(response.body).to include("Notifications")
     expect(response.body).to include("Audit events")
     expect(response.body).to include("Jobs")
     expect(response.body).to include(app_dashboard_path)
+    expect(response.body).not_to include(app_notifications_path)
   end
 end

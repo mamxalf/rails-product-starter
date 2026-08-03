@@ -1,0 +1,37 @@
+<div class="min-h-screen bg-zinc-50 text-zinc-950" data-controller="sidebar">
+  <% nav_partial = local_assigns.fetch(:nav_partial, "shared/app_sidebar_nav") %>
+
+  <div class="fixed inset-0 z-50 hidden lg:hidden" data-sidebar-target="drawer">
+    <button type="button" class="fixed inset-0 bg-zinc-900/80" data-action="sidebar#close">
+      <span class="sr-only">Close sidebar backdrop</span>
+    </button>
+    <div class="fixed inset-y-0 left-0 flex w-full max-w-xs flex-col bg-white px-6 pb-4">
+      <button type="button" class="absolute left-full top-5 ml-4 text-white" data-action="sidebar#close">
+        <span class="sr-only">Close sidebar</span>
+        <span aria-hidden="true" class="text-2xl leading-none">&times;</span>
+      </button>
+      <%= render nav_partial %>
+    </div>
+  </div>
+
+  <aside class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+    <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-zinc-200 bg-white px-6 pb-4">
+      <%= render nav_partial %>
+    </div>
+  </aside>
+
+  <div class="sticky top-0 z-40 flex items-center gap-x-6 border-b border-zinc-200 bg-white px-4 py-4 shadow-xs sm:px-6 lg:hidden">
+    <button type="button" class="-m-2.5 p-2.5 text-zinc-700" data-action="sidebar#open">
+      <span class="sr-only">Open sidebar</span>
+      <span aria-hidden="true" class="text-2xl leading-none">&#9776;</span>
+    </button>
+    <div class="flex-1 text-sm/6 font-semibold text-zinc-950"><%= content_for(:title) || "Dashboard" %></div>
+  </div>
+
+  <div class="lg:pl-72">
+    <div class="px-4 py-6 sm:px-6 lg:px-8">
+      <%= render "shared/flash" %>
+    </div>
+    <%= yield %>
+  </div>
+</div>

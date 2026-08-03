@@ -3,6 +3,7 @@ module Settings
     include VerifiedUserRequired
     include NotSuspended
 
+    layout "app"
     before_action :set_user
 
     private

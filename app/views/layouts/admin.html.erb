@@ -9,8 +9,8 @@
     <%= vite_typescript_tag "application.ts" %>
   </head>
   <body>
-    <%= render "shared/admin_navigation" %>
-    <%= render "shared/flash" %>
-    <%= yield %>
+    <%= render layout: "shared/authenticated_sidebar_shell", locals: { nav_partial: "shared/admin_sidebar_nav" } do %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>

@@ -20,6 +20,9 @@ RSpec.describe "Authentication", type: :request do
 
     expect(response).to have_http_status(:unprocessable_content)
     expect(response.body).to include("Try another email address or password")
+    expect(response.body).to include("role=\"alert\"")
+    expect(response.body).to include("value=\"member@example.com\"")
+    expect(response.body).not_to include("translation_missing")
   end
 
   it "logs out of the current session" do

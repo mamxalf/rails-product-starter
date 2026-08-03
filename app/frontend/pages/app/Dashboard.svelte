@@ -14,10 +14,10 @@
 </script>
 
 <AppLayout {auth} {notifications} {locale} {i18n} {flash}>
-  <div class="max-w-5xl">
+  <div class="mx-auto max-w-6xl">
     <div class="flex items-start justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-semibold">{text.title}</h1>
+        <h1 class="text-2xl font-semibold text-zinc-950">{text.title}</h1>
         <p class="mt-1 text-sm text-zinc-600">{text.welcome_line}</p>
       </div>
       {#if permissions.access_admin}
@@ -29,17 +29,23 @@
     </div>
 
     <section class="mt-6 grid gap-4 lg:grid-cols-3">
-      <article class="rounded-md border border-zinc-200 bg-white p-4">
-        <h2 class="font-medium">{text.welcome}</h2>
-        <p class="mt-2 text-sm text-zinc-600">{text.welcome_body}</p>
+      <article class="rounded-md border border-zinc-200 bg-white p-5">
+        <h2 class="text-sm font-medium text-zinc-600">{text.welcome}</h2>
+        <p class="mt-2 text-lg font-semibold text-zinc-950">
+          {text.welcome_body}
+        </p>
       </article>
-      <article class="rounded-md border border-zinc-200 bg-white p-4">
-        <h2 class="font-medium">{text.verified}</h2>
-        <p class="mt-2 text-sm text-zinc-600">{text.verified_body}</p>
+      <article class="rounded-md border border-zinc-200 bg-white p-5">
+        <h2 class="text-sm font-medium text-zinc-600">{text.verified}</h2>
+        <p class="mt-2 text-lg font-semibold text-zinc-950">
+          {text.verified_body}
+        </p>
       </article>
-      <article class="rounded-md border border-zinc-200 bg-white p-4">
-        <h2 class="font-medium">{text.notifications}</h2>
-        <p class="mt-2 text-sm text-zinc-600">{text.no_notifications}</p>
+      <article class="rounded-md border border-zinc-200 bg-white p-5">
+        <h2 class="text-sm font-medium text-zinc-600">{text.notifications}</h2>
+        <p class="mt-2 text-lg font-semibold text-zinc-950">
+          {text.no_notifications}
+        </p>
       </article>
     </section>
 

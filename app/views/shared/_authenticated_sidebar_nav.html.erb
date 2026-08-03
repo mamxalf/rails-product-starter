@@ -1,0 +1,42 @@
+<% user = Current.user %>
+<% nav_item = ->(label, path) do %>
+  <% active = current_page?(path) || (path == settings_profile_path && request.path.start_with?("/settings")) %>
+  <li>
+    <%= link_to path, class: [
+      "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold",
+      active ? "bg-zinc-50 text-zinc-950" : "text-zinc-700 hover:bg-zinc-50 hover:text-zinc-950"
+    ] do %>
+      <span class="flex size-6 shrink-0 items-center justify-center rounded-md border border-zinc-200 bg-white text-[0.625rem] font-semibold text-zinc-500"><%= label.first %></span>
+      <span><%= label %></span>
+    <% end %>
+  </li>
+<% end %>
+
+<div class="flex h-16 shrink-0 items-center">
+  <%= link_to ENV.fetch("APP_NAME", "Starter App"), app_dashboard_path, class: "text-sm font-semibold text-zinc-950" %>
+</div>
+
+<nav aria-label="Authenticated" class="flex flex-1 flex-col">
+  <ul role="list" class="flex flex-1 flex-col gap-y-7">
+    <li>
+      <ul role="list" class="-mx-2 space-y-1">
+        <% nav_item.call("Dashboard", app_dashboard_path) %>
+        <% nav_item.call("Settings", settings_profile_path) %>
+        <% if user&.staff? || user&.admin? %>
+          <% nav_item.call("Admin Users", admin_users_path) %>
+          <% nav_item.call("Admin Notifications", admin_notifications_path) %>
+        <% end %>
+      </ul>
+    </li>
+    <li class="-mx-2 mt-auto space-y-1">
+      <% unless current_page?(app_dashboard_path) %>
+        <%= link_to "Back to app", app_dashboard_path, class: "block rounded-md p-2 text-sm/6 font-semibold text-zinc-700 hover:bg-zinc-50 hover:text-zinc-950" %>
+      <% end %>
+      <div class="px-2 py-3 text-sm">
+        <p class="font-medium text-zinc-950"><%= user&.name %></p>
+        <p class="truncate text-zinc-500"><%= user&.email_address %></p>
+      </div>
+      <%= button_to "Sign out", session_path, method: :delete, class: "w-full rounded-md bg-zinc-950 px-3 py-2 text-sm font-medium text-white hover:bg-zinc-800" %>
+    </li>
+  </ul>
+</nav>
